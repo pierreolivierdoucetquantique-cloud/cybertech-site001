@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="fr-CA">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Création de votre site Web | Cyber Teck Q</title>
+<meta name="description" content="Ouvrez votre espace client Cyber Teck Q pour démarrer la création de votre site web et suivre vos projets, vos factures et vos documents.">
+<meta name="theme-color" content="#2563EB">
+<meta property="og:title" content="Création de votre site Web | Cyber Teck Q">
+<meta property="og:description" content="La création de votre site Web débute par l'ouverture de votre espace client.">
+<meta property="og:type" content="website">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=910">
+</head>
+<body>
+
+<div class="bg-cover-layer"></div>
+
+<header class="site-header" id="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="brand" aria-label="Accueil — Cyber Teck Q">
+      <div class="brand-logo" id="brand-logo">
+        <img src="assets/logo-icon.png" alt="Cyber Teck Q" class="logo-img">
+      </div>
+      <div class="brand-text">
+        <span class="brand-name">CYBER TECK <strong>Q</strong></span>
+        <span class="brand-tagline">Concepteur Web &amp; Solutions Numériques</span>
+      </div>
+    </a>
+
+    <nav class="main-nav" id="main-nav" aria-label="Navigation principale">
+      <a href="index.html" class="nav-link" data-cms-text="nav.link_accueil">Accueil</a>
+      <a href="services.html" class="nav-link" data-cms-text="nav.link_services">Services</a>
+      <a href="tarifs.html" class="nav-link" data-cms-text="nav.link_tarifs">Tarifs</a>
+      <a href="creation-site-web.html" class="nav-link nav-link-cta-text is-active"><svg class="nav-account-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.6 3.1-6.5 7-6.5s7 2.9 7 6.5"/></svg>Création de votre site Web</a>
+      <a href="faq.html" class="nav-link" data-cms-text="nav.link_faq">FAQ</a>
+      <a href="contact.html" class="nav-link" data-cms-text="nav.link_contact">Contact</a>
+    </nav>
+
+    <button class="nav-toggle" id="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ PAGE HERO ============ -->
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <span class="eyebrow" data-cms-text="creation.hero.eyebrow">Création de votre site Web</span>
+    <h1 data-cms-text="creation.hero.title">Votre espace client</h1>
+    <p class="page-hero-sub" data-cms-text="creation.hero.subtitle">La création de votre site Web débute par l'ouverture de votre espace client.</p>
+  </div>
+</section>
+
+<!-- ============ ESPACE CLIENT ============ -->
+<section class="client-section" id="espace-client">
+  <div class="client-inner">
+    <div class="section-head">
+      <p class="section-sub" data-cms-text="creation.section.subtitle">Suivez vos projets, vos factures et vos documents en un seul endroit sécurisé.</p>
+    </div>
+
+    <div class="client-tabs">
+      <button class="client-tab is-active" data-tab="login">Connexion</button>
+      <button class="client-tab" data-tab="register">Créer un compte</button>
+    </div>
+
+    <form class="client-form" id="login-form" data-panel="login">
+      <label class="field">
+        <span>Courriel</span>
+        <input type="email" name="email" autocomplete="email" required placeholder="vous@exemple.com">
+      </label>
+      <label class="field">
+        <span>Mot de passe</span>
+        <div class="password-field">
+          <input type="password" name="password" id="login-password" autocomplete="current-password" required placeholder="••••••••">
+          <button type="button" class="toggle-password" data-target="login-password" aria-label="Afficher le mot de passe">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+      </label>
+      <a href="#" class="forgot-link">Mot de passe oublié ?</a>
+      <button type="submit" class="btn btn-gradient" style="width:100%">Se connecter</button>
+    </form>
+
+    <form class="client-form" id="register-form" data-panel="register" hidden>
+      <div class="field-row">
+        <label class="field">
+          <span>Prénom</span>
+          <input type="text" name="prenom" autocomplete="given-name" required>
+        </label>
+        <label class="field">
+          <span>Nom</span>
+          <input type="text" name="nom" autocomplete="family-name" required>
+        </label>
+      </div>
+      <label class="field">
+        <span>Courriel</span>
+        <input type="email" name="courriel" autocomplete="email" required placeholder="vous@exemple.com">
+      </label>
+      <label class="field">
+        <span>Téléphone</span>
+        <input type="tel" name="telephone" autocomplete="tel" placeholder="(514) 000-0000">
+      </label>
+      <label class="field">
+        <span>Mot de passe</span>
+        <div class="password-field">
+          <input type="password" name="password" id="register-password" autocomplete="new-password" required minlength="8">
+          <button type="button" class="toggle-password" data-target="register-password" aria-label="Afficher le mot de passe">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+      </label>
+      <label class="field">
+        <span>Confirmer le mot de passe</span>
+        <div class="password-field">
+          <input type="password" name="confirm_password" id="confirm-password" autocomplete="new-password" required minlength="8">
+          <button type="button" class="toggle-password" data-target="confirm-password" aria-label="Afficher le mot de passe">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+        <span class="field-error" id="password-match-error" hidden>Les mots de passe ne correspondent pas.</span>
+      </label>
+      <button type="submit" class="btn btn-gradient" style="width:100%">Créer mon compte</button>
+    </form>
+
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="footer-name">Cyber Teck Q</span>
+      <span class="footer-italic" data-cms-text="footer.tagline">Imaginer. Créer. Développer. Propulser vos idées.</span>
+    </div>
+    <a class="footer-email" href="mailto:cybertechquantum@gmail.com">cybertechquantum@gmail.com</a>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; <span id="year"></span> <span data-cms-text="footer.copyright">Cyber Teck Q. Tous droits réservés.</span></p>
+  </div>
+</footer>
+
+<script src="api.js?v=910"></script>
+<script src="ui-utils.js?v=910"></script>
+<script src="script.js?v=910"></script>
+</body>
+</html>

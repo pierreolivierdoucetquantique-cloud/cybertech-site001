@@ -1,0 +1,27 @@
+# Environnements virtuels Python
+venv/
+env/
+.venv/
+__pycache__/
+*.pyc
+
+# Variables d'environnement (NE JAMAIS commiter de vraies clés/secrets)
+.env
+.env.local
+
+# Base de données locale (en production, elle vit sur le Render Disk, pas dans le repo)
+data/*.db
+data/*.db-journal
+data/invoices/
+data/uploads/
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Éditeurs
+.vscode/
+.idea/

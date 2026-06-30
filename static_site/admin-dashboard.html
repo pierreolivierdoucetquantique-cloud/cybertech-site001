@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="fr-CA">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Administration | Cyber Teck Q</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0F172A">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=910">
+<link rel="stylesheet" href="dashboard.css?v=912">
+<link rel="stylesheet" href="admin.css?v=910">
+</head>
+<body class="admin-body">
+
+<div id="admin-guard" hidden style="display:flex; align-items:center; justify-content:center; min-height:100vh;">
+  <div class="dashboard-guard-card">
+    <h1>Accès restreint</h1>
+    <p>Vous devez vous connecter avec un compte administrateur pour accéder à cette page.</p>
+    <a href="admin-login.html" class="btn btn-gradient">Aller à la connexion</a>
+  </div>
+</div>
+
+<div class="admin-shell" id="admin-shell" hidden>
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="admin-sidebar">
+    <div class="admin-sidebar-brand">
+      <img src="assets/logo-icon.png" alt="Cyber Teck Q">
+      <span>CYBER TECK Q — Admin</span>
+    </div>
+
+    <nav class="admin-nav">
+      <button class="admin-nav-link is-active" data-panel="overview">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+        Tableau de bord
+      </button>
+      <button class="admin-nav-link" data-panel="reports">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19V5M4 19h16M8 19v-6M12 19V9M16 19v-9"/></svg>
+        Statistiques
+      </button>
+      <button class="admin-nav-link" data-panel="clients">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="8" r="3.2"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/><circle cx="17.5" cy="9" r="2.4"/><path d="M14.8 14.8c2.3.2 4.7 1.9 4.7 5.2"/></svg>
+        Clients
+      </button>
+      <button class="admin-nav-link" data-panel="orders">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+        Commandes
+      </button>
+      <button class="admin-nav-link" data-panel="invoices">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 3h10l3 3v15H4V3z"/><path d="M14 3v4h4M8 12h8M8 16h5"/></svg>
+        Factures
+      </button>
+      <button class="admin-nav-link" data-panel="maintenance">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14.7 6.3a1 1 0 0 0 0-1.4L13.1 3.3a1 1 0 0 0-1.4 0L10 5l3 3 1.7-1.7z"/><path d="M3 21l3.4-.9L17 9.5 14.5 7 4 17.6 3 21z"/></svg>
+        Maintenance
+        <span class="admin-nav-badge" id="maintenance-renewal-badge" hidden>0</span>
+      </button>
+      <button class="admin-nav-link" data-panel="payments">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+        Paiements
+        <span class="admin-nav-badge" id="payments-pending-badge" hidden>0</span>
+      </button>
+      <button class="admin-nav-link" data-panel="messages">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h16v12H7l-3 3V5z"/></svg>
+        Messages
+        <span class="admin-nav-badge" id="messages-unread-badge" hidden>0</span>
+      </button>
+      <button class="admin-nav-link" data-panel="projects">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.1 6.6L12 17.6l-5.8 3 1.1-6.6L2.5 9.4l6.6-.9L12 2.5z"/></svg>
+        Projets (portfolio)
+      </button>
+      <button class="admin-nav-link" data-panel="technical-forms">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 3h9l3 3v15H6V3z"/><path d="M9 9h6M9 13h6M9 17h4"/></svg>
+        Formulaires techniques
+      </button>
+      <button class="admin-nav-link" data-panel="cms">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h16M4 12h16M4 19h10"/></svg>
+        Contenu du site
+      </button>
+      <button class="admin-nav-link" data-panel="audit">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 5H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-3"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg>
+        Journal d'audit
+      </button>
+      <button class="admin-nav-link" data-panel="settings">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 13a7.4 7.4 0 0 0 0-2l2-1.6-2-3.4-2.4.8a7.5 7.5 0 0 0-1.7-1l-.3-2.5h-4l-.3 2.5a7.5 7.5 0 0 0-1.7 1l-2.4-.8-2 3.4 2 1.6a7.4 7.4 0 0 0 0 2l-2 1.6 2 3.4 2.4-.8a7.5 7.5 0 0 0 1.7 1l.3 2.5h4l.3-2.5a7.5 7.5 0 0 0 1.7-1l2.4.8 2-3.4-2-1.6z"/></svg>
+        Mon compte admin
+      </button>
+    </nav>
+
+    <div class="admin-sidebar-footer">
+      <div class="admin-sidebar-user" id="admin-user-email">—</div>
+      <button class="admin-logout-btn" id="admin-logout-btn" type="button">Se déconnecter</button>
+    </div>
+  </aside>
+
+  <!-- ============ MAIN CONTENT ============ -->
+  <main class="admin-main">
+
+    <!-- ---- RECHERCHE GLOBALE ---- -->
+    <div class="admin-global-search">
+      <div class="admin-global-search-input-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input type="text" id="global-search-input" placeholder="Rechercher un client, une commande, une facture…" autocomplete="off">
+      </div>
+      <div class="admin-global-search-results" id="global-search-results" hidden></div>
+    </div>
+
+    <!-- ---- TABLEAU DE BORD ---- -->
+    <section class="admin-panel is-active" data-panel="overview">
+      <div class="admin-panel-head">
+        <div>
+          <h1>Tableau de bord</h1>
+          <p>Vue d'ensemble de l'activité de Cyber Teck Q.</p>
+        </div>
+      </div>
+      <div class="admin-stats-grid" id="stats-grid">
+        <p class="admin-empty">Chargement des statistiques…</p>
+      </div>
+
+      <div class="admin-form-card" style="max-width:none; margin-top:24px;">
+        <h3>Commandes à relancer (impayées depuis 3 jours ou plus)</h3>
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead><tr><th>Client</th><th>N° commande</th><th>Produit</th><th>Prix</th><th>Impayée depuis</th><th>Actions</th></tr></thead>
+            <tbody id="unpaid-followups-table-body"><tr><td colspan="6" class="admin-empty">Chargement…</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---- STATISTIQUES AVANCÉES / RAPPORTS ---- -->
+    <section class="admin-panel" data-panel="reports">
+      <div class="admin-panel-head">
+        <div>
+          <h1>Statistiques</h1>
+          <p>Évolution de l'activité dans le temps et répartitions détaillées.</p>
+        </div>
+      </div>
+
+      <div class="admin-report-grid">
+        <div class="admin-form-card admin-report-card">
+          <h3>Revenu mensuel (12 derniers mois)</h3>
+          <div id="report-revenue-chart" class="admin-chart-wrap"><p class="admin-empty">Chargement…</p></div>
+        </div>
+        <div class="admin-form-card admin-report-card">
+          <h3>Nouvelles commandes par mois</h3>
+          <div id="report-orders-chart" class="admin-chart-wrap"><p class="admin-empty">Chargement…</p></div>
+        </div>
+        <div class="admin-form-card admin-report-card">
+          <h3>Nouveaux clients par mois</h3>
+          <div id="report-clients-chart" class="admin-chart-wrap"><p class="admin-empty">Chargement…</p></div>
+        </div>
+        <div class="admin-form-card admin-report-card">
+          <h3>Commandes par statut</h3>
+          <div id="report-status-chart" class="admin-chart-wrap"><p class="admin-empty">Chargement…</p></div>
+        </div>
+        <div class="admin-form-card admin-report-card">
+          <h3>Commandes par type de produit</h3>
+          <div id="report-product-chart" class="admin-chart-wrap"><p class="admin-empty">Chargement…</p></div>
+        </div>
+        <div class="admin-form-card admin-report-card admin-report-card-wide">
+          <h3>Top 10 clients par revenu</h3>
+          <div class="admin-table-wrap">
+            <table class="admin-table">
+              <thead><tr><th>Client</th><th>Courriel</th><th>Factures</th><th>Revenu total</th></tr></thead>
+              <tbody id="report-top-clients-body"><tr><td colspan="4" class="admin-empty">Chargement…</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---- CLIENTS (CRM) ---- -->
+    <section class="admin-panel" data-panel="clients">
+      <div class="admin-panel-head">
+        <div>
+          <h1>Clients</h1>
+          <p>Gestion de votre base de clients.</p>
+        </div>
+      </div>
+      <div class="admin-toolbar">
+        <input type="text" class="admin-search-input" id="clients-search" placeholder="Rechercher par nom ou courriel…">
+        <select class="admin-select" id="clients-status-filter">
+          <option value="">Tous les statuts</option>
+          <option value="true">Actifs seulement</option>
+          <option value="false">Désactivés seulement</option>
+        </select>
+      </div>
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead>
+            <tr><th>Client</th><th>Courriel</th><th>Téléphone</th><th>Commandes</th><th>Statut</th><th>Inscrit le</th><th>Actions</th></tr>
+          </thead>
+          <tbody id="clients-table-body">
+            <tr><td colspan="7" class="admin-empty">Chargement…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ---- COMMANDES (CRM) ---- -->
+    <section class="admin-panel" data-panel="orders">
+      <div class="admin-panel-head">
+        <div>
+          <h1>Commandes</h1>
+          <p>Suivi et mise à jour de l'avancement de chaque projet.</p>
+        </div>
+      </div>
+      <div class="admin-toolbar">
+        <select class="admin-select" id="orders-status-filter">
+          <option value="">Tous les statuts</option>
+          <option value="pending">En attente</option>
+          <option value="processing">En cours</option>
+          <option value="delivered">Livré</option>
+          <option value="cancelled">Annulé</option>
+          <option value="archived">Archivé</option>
+        </select>
+      </div>
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead>
+            <tr><th>N° commande</th><th>Client</th><th>Services</th><th>Total</th><th>Statut</th><th>Paiement</th><th>Avancement</th><th>Facture</th><th>Actions</th></tr>
+          </thead>
+          <tbody id="orders-table-body">
+            <tr><td colspan="9" class="admin-empty">Chargement…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ---- FACTURES ---- -->
+    <section class="admin-panel" data-panel="invoices">
+      <div class="admin-panel-head">
+        <div>
+          <h1>Factures</h1>
+          <p>Toutes les factures générées, indépendamment de la commande associée.</p>
+        </div>
+      </div>
+      <div class="admin-toolbar">
+        <input type="text" class="admin-search-input" id="invoices-search" placeholder="Rechercher par n° facture, client ou commande…">
+      </div>
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead>
+            <tr><th>N° facture</th><th>Client</th><th>Commande</th><th>Sous-total</th><th>TPS</th><th>TVQ</th><th>Total</th><th>Émise le</th><th>Actions</th></tr>
+          </thead>
+          <tbody id="invoices-table-body">
+            <tr><td colspan="9" class="admin-empty">Chargement…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ---- CONTRATS DE MAINTENANCE ---- -->
+    <section class="admin-panel" data-panel="maintenance">
+      <div class="admin-panel-head">
+        <div>
+          <h1>Maintenance</h1>
+          <p>Contrats de maintenance annuels (499 $ CAD/an) et leur date de renouvellement.</p>
+        </div>
+      </div>
+      <div class="admin-stats-grid" id="maintenance-summary-grid" style="margin-bottom:22px;">
+        <p class="admin-empty">Chargement…</p>
+      </div>
+      <div class="admin-toolbar">
+        <select class="admin-select" id="maintenance-state-filter">
+          <option value="">Tous les contrats</option>
+          <option value="active">Actifs</option>
+          <option value="renewal_soon">À renouveler bientôt</option>
+          <option value="expired">Expirés</option>
+          <option value="unpaid">Non payés</option>
+          <option value="cancelled">Annulés</option>
+        </select>
+      </div>
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead>
+            <tr><th>Client</th><th>N° commande</th><th>Débuté le</th><th>Renouvellement</th><th>État</th><th>Contrat</th><th>Notes</th><th>Actions</th></tr>
+          </thead>
+          <tbody id="maintenance-table-body">
+            <tr><td colspan="8" class="admin-empty">Chargement…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ---- PAIEMENTS (VALIDATION INTERAC) ---- -->
+    <section class="admin-panel" data-panel="payments">
+      <div class="admin-panel-head">
+        <div>
+          <h1>Paiements</h1>
+          <p>Historique complet des transactions (Interac et Stripe), validation et remboursement.</p>
+        </div>
+      </div>
+      <div class="admin-toolbar">
+        <input type="search" class="admin-search-input" id="payments-search" placeholder="Rechercher (client, courriel, commande)…">
+        <select class="admin-select" id="payments-filter">
+          <option value="false">Tous les paiements</option>
+          <option value="true">En attente de validation (Interac)</option>
+        </select>
+        <select class="admin-select" id="payments-method-filter">
+          <option value="">Toutes les méthodes</option>
+          <option value="interac">Interac</option>
+          <option value="stripe">Stripe (carte)</option>
+        </select>
+        <select class="admin-select" id="payments-sort">
+          <option value="created_at-desc">Plus récent</option>
+          <option value="created_at-asc">Plus ancien</option>
+          <option value="amount-desc">Montant (décroissant)</option>
+          <option value="amount-asc">Montant (croissant)</option>
+          <option value="client_name-asc">Client (A→Z)</option>
+        </select>
+        <button class="admin-btn-sm" id="export-payments-btn">Exporter en CSV</button>
+      </div>
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead>
+            <tr><th>Date</th><th>Client</th><th>Commande</th><th>Services</th><th>Sous-total</th><th>TPS</th><th>TVQ</th><th>Total commande</th><th>Méthode</th><th>Montant payé</th><th>Statut</th><th>Actions</th></tr>
+          </thead>
+          <tbody id="payments-table-body">
+            <tr><td colspan="12" class="admin-empty">Chargement…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ---- MESSAGES (CONTACT) ---- -->
+    <section class="admin-panel" data-panel="messages">
+      <div class="admin-panel-head">
+        <div>
+          <h1>Messages</h1>
+          <p>Messages reçus via le formulaire de contact du site public.</p>
+        </div>
+      </div>
+      <div class="admin-toolbar">
+        <select class="admin-select" id="messages-status-filter">
+          <option value="unread">Non lus</option>
+          <option value="all">Tous (non archivés)</option>
+          <option value="archived">Archivés</option>
+        </select>
+      </div>
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead>
+            <tr><th>Reçu le</th><th>Nom</th><th>Courriel</th><th>Sujet</th><th>Courriel envoyé</th><th>Statut</th><th>Actions</th></tr>
+          </thead>
+          <tbody id="messages-table-body">
+            <tr><td colspan="7" class="admin-empty">Chargement…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ---- PROJETS (PORTFOLIO) ---- -->
+    <section class="admin-panel" data-panel="projects">
+      <div class="admin-panel-head">
+        <div>
+          <h1>Projets (portfolio)</h1>
+          <p>Les projets publiés apparaissent automatiquement sur la page d'accueil publique.</p>
+        </div>
+        <button class="admin-btn-sm primary" id="add-project-btn">+ Ajouter un projet</button>
+      </div>
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead>
+            <tr><th>Titre</th><th>Client</th><th>Lien</th><th>Statut</th><th>Actions</th></tr>
+          </thead>
+          <tbody id="projects-table-body">
+            <tr><td colspan="5" class="admin-empty">Chargement…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ---- FORMULAIRES TECHNIQUES ---- -->
+    <section class="admin-panel" data-panel="technical-forms">
+      <div class="admin-panel-head">
+        <div>
+          <h1>Formulaires techniques</h1>
+          <p>Questionnaires soumis par les clients après leur commande.</p>
+        </div>
+      </div>
+      <div class="admin-toolbar">
+        <input type="text" class="admin-search-input" id="technical-forms-search" placeholder="Rechercher par entreprise, client ou commande…">
+      </div>
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead>
+            <tr><th>Entreprise</th><th>Client</th><th>Commande</th><th>Secteur</th><th>Reçu le</th><th>Actions</th></tr>
+          </thead>
+          <tbody id="technical-forms-table-body">
+            <tr><td colspan="6" class="admin-empty">Chargement…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ---- CMS (FAQ + TARIFS + PAGES) ---- -->
+    <section class="admin-panel" data-panel="cms">
+      <div class="admin-panel-head">
+        <div>
+          <h1>Contenu du site</h1>
+          <p>Modifiez tous les textes, listes et coordonnées affichés publiquement, sans toucher au code.</p>
+        </div>
+      </div>
+
+      <div class="page-editor-tabs" id="cms-tabs"></div>
+
+      <div id="cms-tab-faq" class="cms-tab-panel" hidden>
+        <div class="admin-toolbar"><button class="admin-btn-sm primary" id="add-faq-btn">+ Ajouter une question</button></div>
+        <div class="admin-table-wrap" style="margin-bottom:8px;">
+          <table class="admin-table">
+            <thead><tr><th>Question</th><th>Publiée</th><th>Ordre</th><th>Actions</th></tr></thead>
+            <tbody id="faq-table-body"><tr><td colspan="4" class="admin-empty">Chargement…</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="cms-tab-pricing" class="cms-tab-panel" hidden>
+        <div class="admin-toolbar"><button class="admin-btn-sm primary" id="add-pricing-btn">+ Ajouter un forfait</button></div>
+        <div class="admin-table-wrap" style="margin-bottom:8px;">
+          <table class="admin-table">
+            <thead><tr><th>Nom</th><th>Prix</th><th>Mis en avant</th><th>Publié</th><th>Actions</th></tr></thead>
+            <tbody id="pricing-table-body"><tr><td colspan="5" class="admin-empty">Chargement…</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="cms-tab-contact-info" class="cms-tab-panel" hidden>
+        <p style="font-size:.84rem; color:var(--admin-text-soft); margin:0 0 14px;">Affichées dans le pied de page et la page Contact du site public.</p>
+        <div class="admin-form-card" id="contact-info-form-card">
+          <form id="contact-info-form">
+            <label class="field"><span>Courriel</span><input type="email" name="contact.email" placeholder="contact@cyberteckq.com"></label>
+            <label class="field"><span>Téléphone</span><input type="tel" name="contact.phone" placeholder="(514) 000-0000"></label>
+            <label class="field"><span>Adresse</span><input type="text" name="contact.address" placeholder="Ville, Québec"></label>
+            <label class="field"><span>Lien Facebook</span><input type="url" name="contact.social_facebook" placeholder="https://facebook.com/..."></label>
+            <label class="field"><span>Lien Instagram</span><input type="url" name="contact.social_instagram" placeholder="https://instagram.com/..."></label>
+            <label class="field"><span>Lien LinkedIn</span><input type="url" name="contact.social_linkedin" placeholder="https://linkedin.com/..."></label>
+            <button type="submit" class="admin-btn-sm primary">Enregistrer les modifications</button>
+          </form>
+        </div>
+      </div>
+
+      <div id="cms-tab-pages-container"></div>
+    </section>
+
+    <!-- ---- JOURNAL D'AUDIT ---- -->
+    <section class="admin-panel" data-panel="audit">
+      <div class="admin-panel-head">
+        <div>
+          <h1>Journal d'audit</h1>
+          <p>Historique des actions sensibles effectuées sur la plateforme.</p>
+        </div>
+      </div>
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead><tr><th>Date</th><th>Acteur</th><th>Action</th><th>Cible</th><th>IP</th></tr></thead>
+          <tbody id="audit-table-body"><tr><td colspan="5" class="admin-empty">Chargement…</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ---- MON COMPTE ADMIN ---- -->
+    <section class="admin-panel" data-panel="settings">
+      <div class="admin-panel-head">
+        <div>
+          <h1>Mon compte admin</h1>
+          <p>Sécurité de votre accès administrateur.</p>
+        </div>
+      </div>
+      <div class="admin-form-card">
+        <h3>Changer le mot de passe</h3>
+        <form id="admin-password-form">
+          <label class="field">
+            <span>Mot de passe actuel</span>
+            <input type="password" name="current_password" required autocomplete="current-password">
+          </label>
+          <label class="field">
+            <span>Nouveau mot de passe</span>
+            <input type="password" name="new_password" required minlength="8" autocomplete="new-password">
+          </label>
+          <button type="submit" class="admin-btn-sm primary">Mettre à jour</button>
+        </form>
+      </div>
+
+      <div class="admin-form-card">
+        <h3>Facturation</h3>
+        <p style="font-size:.85rem; color:var(--admin-text-soft); margin:0 0 14px;">
+          Ce réglage s'applique uniquement aux NOUVELLES commandes. Les commandes déjà créées
+          conservent leurs montants tels que facturés au moment de leur création.
+        </p>
+        <label class="field" style="display:flex; align-items:center; gap:10px; flex-direction:row;">
+          <input type="checkbox" id="settings-enable-taxes" style="width:auto;">
+          <span>Appliquer la TPS (5%) et la TVQ (9.975%) sur les nouvelles commandes</span>
+        </label>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- ============ MODALS ============ -->
+<div class="admin-modal-overlay" id="project-modal" hidden>
+  <div class="admin-modal-box">
+    <h3 id="project-modal-title">Ajouter un projet</h3>
+    <form id="project-form">
+      <input type="hidden" name="id">
+      <label class="field"><span>Titre</span><input type="text" name="title" required></label>
+      <label class="field"><span>Nom du client</span><input type="text" name="client_name"></label>
+      <label class="field"><span>Description</span><textarea name="description" rows="3"></textarea></label>
+      <label class="field"><span>Technologies</span><input type="text" name="technologies" placeholder="HTML, CSS, JS"></label>
+      <label class="field"><span>Lien externe</span><input type="url" name="external_link" placeholder="https://"></label>
+      <label class="field">
+        <span>Image principale</span>
+        <input type="file" id="project-preview-image-input" accept=".jpg,.jpeg,.png,.webp,.gif">
+        <small id="project-preview-current" style="color:var(--text-soft); font-size:.78rem;"></small>
+      </label>
+      <div class="checkbox-field"><input type="checkbox" name="is_published" id="project-published"><label for="project-published">Publier sur le site public</label></div>
+      <div class="admin-modal-actions">
+        <button type="button" class="admin-btn-sm" id="cancel-project">Annuler</button>
+        <button type="submit" class="admin-btn-sm primary">Enregistrer les modifications</button>
+      </div>
+    </form>
+
+    <div id="project-gallery-section" hidden style="margin-top:22px; border-top:1px solid var(--border); padding-top:18px;">
+      <h4 style="margin:0 0 10px; font-size:.92rem;">Galerie (images et vidéos)</h4>
+      <div id="project-gallery-grid" style="display:flex; flex-wrap:wrap; gap:10px; margin-bottom:14px;"></div>
+      <label class="field">
+        <span>Ajouter une image ou une vidéo</span>
+        <input type="file" id="project-gallery-input" accept=".jpg,.jpeg,.png,.webp,.gif,.mp4,.webm,.mov">
+      </label>
+      <button type="button" class="admin-btn-sm primary" id="project-gallery-add-btn">Ajouter à la galerie</button>
+    </div>
+  </div>
+</div>
+
+<div class="admin-modal-overlay" id="faq-modal" hidden>
+  <div class="admin-modal-box">
+    <h3 id="faq-modal-title">Ajouter une question</h3>
+    <form id="faq-form">
+      <input type="hidden" name="id">
+      <label class="field"><span>Question</span><input type="text" name="question" required></label>
+      <label class="field"><span>Réponse</span><textarea name="answer" rows="3" required></textarea></label>
+      <label class="field"><span>Ordre d'affichage</span><input type="number" name="display_order" value="0"></label>
+      <div class="checkbox-field"><input type="checkbox" name="is_published" id="faq-published" checked><label for="faq-published">Publiée</label></div>
+      <div class="admin-modal-actions">
+        <button type="button" class="admin-btn-sm" id="cancel-faq">Annuler</button>
+        <button type="submit" class="admin-btn-sm primary">Enregistrer</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="admin-modal-overlay" id="pricing-modal" hidden>
+  <div class="admin-modal-box">
+    <h3 id="pricing-modal-title">Ajouter un forfait</h3>
+    <form id="pricing-form">
+      <input type="hidden" name="id">
+      <label class="field"><span>Nom</span><input type="text" name="name" required></label>
+      <label class="field"><span>Prix (texte libre)</span><input type="text" name="price" placeholder="1 300 $ CAD" required></label>
+      <label class="field"><span>Caractéristiques (une par ligne)</span><textarea name="features" rows="4" placeholder="Responsive&#10;SEO&#10;3 révisions gratuites"></textarea></label>
+      <div class="checkbox-field"><input type="checkbox" name="is_featured" id="pricing-featured"><label for="pricing-featured">Mettre en avant (badge "Populaire")</label></div>
+      <div class="checkbox-field"><input type="checkbox" name="is_published" id="pricing-published" checked><label for="pricing-published">Publié</label></div>
+      <div class="admin-modal-actions">
+        <button type="button" class="admin-btn-sm" id="cancel-pricing">Annuler</button>
+        <button type="submit" class="admin-btn-sm primary">Enregistrer</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="admin-modal-overlay" id="order-modal" hidden>
+  <div class="admin-modal-box">
+    <h3>Commande <span id="order-modal-number"></span></h3>
+
+    <form id="order-form">
+      <input type="hidden" name="id">
+      <label class="field">
+        <span>Statut de la commande</span>
+        <select name="status">
+          <option value="pending">En attente</option>
+          <option value="processing">En cours</option>
+          <option value="delivered">Livré</option>
+          <option value="cancelled">Annulé</option>
+          <option value="archived">Archivé</option>
+        </select>
+      </label>
+      <label class="field">
+        <span>Statut de paiement</span>
+        <select name="payment_status">
+          <option value="unpaid">Non payé</option>
+          <option value="deposit_paid">Dépôt reçu</option>
+          <option value="paid">Payé</option>
+          <option value="refunded">Remboursé</option>
+          <option value="partially_refunded">Remboursé partiellement</option>
+        </select>
+      </label>
+      <label class="field">
+        <span>Notes internes</span>
+        <textarea name="notes" rows="3"></textarea>
+      </label>
+      <p style="font-size:.8rem; color:var(--text-soft); margin:0 0 14px;">
+        Confirmer un paiement (dépôt ou complet) pour la première fois génère automatiquement la facture du client.
+      </p>
+      <div class="admin-modal-actions">
+        <button type="button" class="admin-btn-sm" id="cancel-order">Annuler</button>
+        <button type="submit" class="admin-btn-sm primary">Enregistrer les modifications</button>
+      </div>
+    </form>
+
+    <h4 style="margin:22px 0 10px;">Avancement par service</h4>
+    <p style="font-size:.8rem; color:var(--text-soft); margin:0 0 14px;">
+      Chaque service du panier progresse indépendamment. Le curseur se synchronise immédiatement avec le compte client.
+    </p>
+    <div id="order-items-progress-list"></div>
+  </div>
+</div>
+
+<template id="order-item-progress-template">
+  <div class="order-item-progress-block" style="border-top:1px solid var(--border); padding-top:14px; margin-top:14px;">
+    <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+      <strong class="oip-name"></strong>
+      <span class="oip-price" style="color:var(--text-soft); font-size:.85rem;"></span>
+    </div>
+    <label class="field">
+      <span>Avancement : <strong class="oip-progress-value">0</strong>% — <span class="oip-progress-step">Projet reçu</span></span>
+      <input type="range" class="oip-progress-slider" min="0" max="100" step="5" value="0">
+    </label>
+    <div class="order-progress-bar" style="margin-bottom:10px;">
+      <div class="order-progress-fill oip-progress-preview" style="width:0%"></div>
+    </div>
+    <label class="field">
+      <span>Date prévue de livraison</span>
+      <input type="date" class="oip-delivery-date">
+    </label>
+    <button type="button" class="admin-btn-sm primary oip-save-btn" style="width:100%; margin-top:6px;">Enregistrer l'avancement de ce service</button>
+  </div>
+</template>
+
+<div class="admin-modal-overlay" id="message-modal" hidden>
+  <div class="admin-modal-box">
+    <h3>Message reçu</h3>
+    <div id="message-modal-content" style="font-size:.92rem; line-height:1.6; margin-bottom:18px;"></div>
+    <div class="admin-modal-actions">
+      <button type="button" class="admin-btn-sm" id="message-toggle-archive">Archiver</button>
+      <button type="button" class="admin-btn-sm danger" id="message-delete-btn">Supprimer</button>
+      <button type="button" class="admin-btn-sm primary" id="message-modal-close">Fermer</button>
+    </div>
+  </div>
+</div>
+
+<div class="admin-modal-overlay" id="client-profile-modal" hidden>
+  <div class="admin-modal-box" style="max-width:700px;">
+    <h3 id="client-profile-modal-title">Fiche client</h3>
+    <div id="client-profile-modal-content"></div>
+    <div class="admin-modal-actions">
+      <button type="button" class="admin-btn-sm primary" id="client-profile-modal-close">Fermer</button>
+    </div>
+  </div>
+</div>
+
+<div class="admin-modal-overlay" id="client-documents-modal" hidden>
+  <div class="admin-modal-box">
+    <h3 id="client-documents-title">Documents du client</h3>
+    <div class="admin-table-wrap" style="margin-bottom:18px;">
+      <table class="admin-table">
+        <thead><tr><th>Fichier</th><th>Envoyé le</th><th></th></tr></thead>
+        <tbody id="client-documents-table-body"><tr><td colspan="3" class="admin-empty">Chargement…</td></tr></tbody>
+      </table>
+    </div>
+    <label class="field">
+      <span>Envoyer un nouveau document à ce client</span>
+      <input type="file" id="client-document-input">
+    </label>
+    <div class="admin-modal-actions">
+      <button type="button" class="admin-btn-sm" id="close-client-documents">Fermer</button>
+      <button type="button" class="admin-btn-sm primary" id="send-client-document-btn">Envoyer</button>
+    </div>
+  </div>
+</div>
+
+<div class="admin-modal-overlay" id="payment-review-modal" hidden>
+  <div class="admin-modal-box">
+    <h3>Valider le paiement</h3>
+    <div id="payment-review-content" style="font-size:.92rem; line-height:1.6; margin-bottom:14px;"></div>
+    <form id="payment-review-form">
+      <input type="hidden" name="id">
+      <label class="field">
+        <span>Note (optionnelle)</span>
+        <textarea name="note" rows="2" placeholder="Ex : reçu confirmé, merci."></textarea>
+      </label>
+      <div class="admin-modal-actions">
+        <button type="button" class="admin-btn-sm" id="cancel-payment-review">Annuler</button>
+        <button type="button" class="admin-btn-sm danger" id="reject-payment-btn">Refuser</button>
+        <button type="submit" class="admin-btn-sm primary">Accepter</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="admin-modal-overlay" id="payment-refund-modal" hidden>
+  <div class="admin-modal-box">
+    <h3>Remboursement</h3>
+    <div id="payment-refund-content" style="font-size:.92rem; line-height:1.6; margin-bottom:14px;"></div>
+    <form id="payment-refund-form">
+      <input type="hidden" name="id">
+      <label class="field">
+        <span>Montant à rembourser (laisser vide pour un remboursement total)</span>
+        <input type="number" name="amount" step="0.01" min="0" placeholder="Ex : 150.00">
+      </label>
+      <label class="field">
+        <span>Raison (optionnelle)</span>
+        <textarea name="reason" rows="2" placeholder="Ex : annulation à la demande du client."></textarea>
+      </label>
+      <p id="payment-refund-warning" style="font-size:.8rem; color:var(--text-soft); margin:0 0 14px;">
+        Pour un paiement Stripe, le remboursement est effectué immédiatement via l'API Stripe — l'argent retourne réellement sur la carte du client.
+        Pour un paiement Interac, le remboursement doit être fait manuellement (hors plateforme) ; ajustez ensuite le statut depuis Admin &gt; Commandes.
+      </p>
+      <div class="admin-modal-actions">
+        <button type="button" class="admin-btn-sm" id="cancel-payment-refund">Annuler</button>
+        <button type="submit" class="admin-btn-sm danger">Confirmer le remboursement</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="admin-modal-overlay" id="technical-form-modal" hidden>
+  <div class="admin-modal-box" style="max-width:620px;">
+    <h3 id="technical-form-modal-title">Détail du questionnaire</h3>
+    <div id="technical-form-modal-content" style="font-size:.88rem; line-height:1.7;"></div>
+    <div class="admin-modal-actions">
+      <button type="button" class="admin-btn-sm primary" id="technical-form-modal-close">Fermer</button>
+    </div>
+  </div>
+</div>
+
+<div class="admin-modal-overlay" id="maintenance-notes-modal" hidden>
+  <div class="admin-modal-box">
+    <h3>Notes du contrat de maintenance</h3>
+    <form id="maintenance-notes-form">
+      <input type="hidden" name="id">
+      <label class="field">
+        <span>Notes internes</span>
+        <textarea name="notes" rows="4" placeholder="Ex : client à rappeler avant le renouvellement."></textarea>
+      </label>
+      <div class="admin-modal-actions">
+        <button type="button" class="admin-btn-sm" id="cancel-maintenance-notes">Annuler</button>
+        <button type="submit" class="admin-btn-sm primary">Enregistrer</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="admin-modal-overlay" id="confirm-modal" hidden>
+  <div class="admin-modal-box">
+    <h3 id="confirm-modal-title">Confirmer l'action</h3>
+    <p id="confirm-modal-text"></p>
+    <div class="admin-modal-actions">
+      <button type="button" class="admin-btn-sm" id="confirm-cancel">Annuler</button>
+      <button type="button" class="admin-btn-sm danger" id="confirm-ok">Confirmer</button>
+    </div>
+  </div>
+</div>
+
+<script src="api.js?v=910"></script>
+<script src="ui-utils.js?v=910"></script>
+<script src="admin-page-editor-config.js?v=910"></script>
+<script src="admin-page-editor.js?v=910"></script>
+<script src="admin-dashboard.js?v=910"></script>
+</body>
+</html>

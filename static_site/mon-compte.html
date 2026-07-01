@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="fr-CA">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mon compte | Cyber Teck Q</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#2563EB">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=910">
+<link rel="stylesheet" href="dashboard.css?v=916">
+</head>
+<body class="dashboard-body">
+
+<div class="bg-cover-layer"></div>
+
+<header class="site-header" id="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="brand" aria-label="Accueil — Cyber Teck Q">
+      <div class="brand-logo" id="brand-logo">
+        <img src="assets/logo-icon.png" alt="Cyber Teck Q" class="logo-img">
+      </div>
+      <div class="brand-text">
+        <span class="brand-name">CYBER TECK <strong>Q</strong></span>
+        <span class="brand-tagline">Concepteur Web &amp; Solutions Numériques</span>
+      </div>
+    </a>
+
+    <nav class="main-nav" id="main-nav" aria-label="Navigation principale">
+      <a href="index.html" class="nav-link">Accueil</a>
+      <a href="services.html" class="nav-link">Services</a>
+      <a href="tarifs.html" class="nav-link">Tarifs</a>
+      <a href="mon-compte.html" class="nav-link nav-link-cta-text is-active">Mon espace client</a>
+      <a href="faq.html" class="nav-link">FAQ</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+    </nav>
+
+    <button class="btn btn-primary header-cta" id="logout-btn" type="button">Se déconnecter</button>
+
+    <button class="nav-toggle" id="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main class="dashboard-main">
+
+  <div class="dashboard-shell" id="dashboard-shell" hidden>
+
+    <!-- ============ SIDEBAR ============ -->
+    <aside class="dashboard-sidebar">
+      <div class="dashboard-user">
+        <div class="dashboard-user-avatar" id="user-avatar">??</div>
+        <div>
+          <p class="dashboard-user-name" id="user-name">—</p>
+          <p class="dashboard-user-email" id="user-email">—</p>
+        </div>
+      </div>
+      <nav class="dashboard-tabs" aria-label="Sections du compte">
+        <button class="dashboard-tab is-active" data-panel="overview">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+          Tableau de bord
+        </button>
+        <button class="dashboard-tab" data-panel="orders">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+          Mes commandes
+        </button>
+        <button class="dashboard-tab" data-panel="payment">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+          Paiement
+        </button>
+        <button class="dashboard-tab" data-panel="invoices">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/><path d="M9.5 13h5M9.5 16.5h5"/></svg>
+          Mes factures
+        </button>
+        <button class="dashboard-tab" data-panel="documents">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h11l5 5v11H4z"/><path d="M15 4v5h5"/></svg>
+          Documents reçus
+        </button>
+        <button class="dashboard-tab" data-panel="profile">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="3.4"/><path d="M5 20c0-3.6 3.1-6 7-6s7 2.4 7 6"/></svg>
+          Mon profil
+        </button>
+        <button class="dashboard-tab" data-panel="settings">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 13a7.4 7.4 0 0 0 0-2l2-1.6-2-3.4-2.4.8a7.5 7.5 0 0 0-1.7-1l-.3-2.5h-4l-.3 2.5a7.5 7.5 0 0 0-1.7 1l-2.4-.8-2 3.4 2 1.6a7.4 7.4 0 0 0 0 2l-2 1.6 2 3.4 2.4-.8a7.5 7.5 0 0 0 1.7 1l.3 2.5h4l.3-2.5a7.5 7.5 0 0 0 1.7-1l2.4.8 2-3.4-2-1.6z"/></svg>
+          Paramètres
+        </button>
+      </nav>
+    </aside>
+
+    <!-- ============ CONTENU ============ -->
+    <div class="dashboard-content">
+
+      <!-- ---- Tableau de bord / marketplace ---- -->
+      <section class="dashboard-panel is-active" data-panel="overview">
+        <div class="dashboard-panel-head">
+          <h1>Tableau de bord</h1>
+          <p>Commandez un service ou suivez l'avancement de vos projets en cours.</p>
+        </div>
+
+        <div class="dashboard-stats-row" id="overview-stats"></div>
+
+        <h2 class="dashboard-subheading">Nos services</h2>
+        <div class="marketplace-grid" id="marketplace-grid">
+          <p class="dashboard-loading">Chargement du catalogue…</p>
+        </div>
+      </section>
+
+      <!-- ---- Mes commandes ---- -->
+      <section class="dashboard-panel" data-panel="orders">
+        <div class="dashboard-panel-head">
+          <h1>Mes commandes</h1>
+          <p>Votre panier en cours et l'historique de vos projets.</p>
+        </div>
+
+        <!-- Section 1 : Votre panier -->
+        <h2 class="dashboard-subheading">Votre panier</h2>
+        <div class="cart-floating-bar is-empty" id="cart-floating-bar">
+          <div class="cart-floating-items" id="cart-floating-items"></div>
+          <div class="cart-floating-total"><span>Total (avant taxes)</span><span id="cart-floating-total">0,00 $</span></div>
+          <div class="cart-actions">
+            <button type="button" class="btn btn-outline" id="cart-continue-btn">← Continuer les achats</button>
+            <button type="button" class="btn btn-gradient" id="cart-checkout-btn">Passer au paiement</button>
+          </div>
+        </div>
+        <p class="dashboard-empty" id="cart-empty-hint">Votre panier est vide. Ajoutez un service depuis le <button class="link-btn" data-goto="dashboard">Tableau de bord</button>.</p>
+
+        <!-- Section 2 : Historique des commandes -->
+        <h2 class="dashboard-subheading" style="margin-top:36px;">Historique des commandes</h2>
+        <div class="orders-list" id="orders-list">
+          <p class="dashboard-loading">Chargement de vos commandes…</p>
+        </div>
+      </section>
+
+      <!-- ---- Paiement ---- -->
+      <section class="dashboard-panel" data-panel="payment">
+        <div class="dashboard-panel-head">
+          <h1>Paiement</h1>
+          <p>Réglez le dépôt ou le montant total d'une commande, par Interac ou par carte (Stripe).</p>
+        </div>
+
+        <h2 class="dashboard-subheading">Vos projets</h2>
+        <div class="payment-order-cards" id="payment-order-cards">
+          <p class="dashboard-loading">Chargement de vos commandes…</p>
+        </div>
+
+        <div id="payment-locked-notice" class="payment-locked-banner" hidden>
+          Veuillez compléter le questionnaire avant de poursuivre votre commande.
+        </div>
+
+        <div id="payment-order-summary" class="payment-order-summary" hidden></div>
+
+        <div id="payment-methods" hidden>
+          <div class="payment-method-grid">
+
+            <!-- Interac -->
+            <div class="payment-method-card" id="interac-card">
+              <h3>Virement Interac</h3>
+              <p>Envoyez votre virement à l'adresse ci-dessous, puis cliquez sur le bouton pour nous en informer. Notre équipe validera votre paiement manuellement.</p>
+              <div class="interac-email-box">
+                <span>Adresse Interac :</span>
+                <code id="interac-email-value">—</code>
+              </div>
+              <div class="amount-choice">
+                <label><input type="radio" name="interac-amount" value="deposit" checked><span>Dépôt (40%)</span></label>
+                <label><input type="radio" name="interac-amount" value="full"><span>Montant total</span></label>
+              </div>
+              <button type="button" class="btn btn-outline" id="interac-start-btn" style="width:100%">J'ai effectué mon paiement</button>
+            </div>
+
+            <!-- Stripe -->
+            <div class="payment-method-card" id="stripe-card">
+              <h3>Carte de crédit (Stripe)</h3>
+              <p>Paiement sécurisé par carte. Vous serez redirigé vers une page de paiement Stripe.</p>
+              <div class="amount-choice">
+                <label><input type="radio" name="stripe-amount" value="deposit" checked><span>Dépôt (40%)</span></label>
+                <label><input type="radio" name="stripe-amount" value="full"><span>Montant total</span></label>
+              </div>
+              <button type="button" class="btn btn-gradient" id="stripe-checkout-btn" style="width:100%">Payer par carte</button>
+            </div>
+
+          </div>
+
+          <h2 class="dashboard-subheading">Historique des paiements pour cette commande</h2>
+          <div class="payments-history" id="payments-history">
+            <p class="dashboard-empty">Aucun paiement enregistré pour cette commande.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---- Mes factures ---- -->
+      <section class="dashboard-panel" data-panel="invoices">
+        <div class="dashboard-panel-head">
+          <h1>Mes factures</h1>
+          <p>Téléchargez vos factures à tout moment.</p>
+        </div>
+        <div class="invoices-list" id="invoices-list">
+          <p class="dashboard-loading">Chargement de vos factures…</p>
+        </div>
+      </section>
+
+      <!-- ---- Documents reçus ---- -->
+      <section class="dashboard-panel" data-panel="documents">
+        <div class="dashboard-panel-head">
+          <h1>Documents reçus</h1>
+          <p>Fichiers que notre équipe vous a transmis pour votre projet.</p>
+        </div>
+        <div class="documents-list" id="documents-list">
+          <p class="dashboard-loading">Chargement de vos documents…</p>
+        </div>
+      </section>
+
+      <!-- ---- Profil ---- -->
+      <section class="dashboard-panel" data-panel="profile">
+        <div class="dashboard-panel-head">
+          <h1>Mon profil</h1>
+          <p>Vos informations personnelles et votre adresse.</p>
+        </div>
+
+        <form class="dashboard-form" id="profile-form">
+          <div class="field-row">
+            <label class="field">
+              <span>Prénom</span>
+              <input type="text" name="first_name" required>
+            </label>
+            <label class="field">
+              <span>Nom</span>
+              <input type="text" name="last_name" required>
+            </label>
+          </div>
+          <label class="field">
+            <span>Téléphone</span>
+            <input type="tel" name="phone" placeholder="(514) 000-0000">
+          </label>
+          <label class="field">
+            <span>Adresse</span>
+            <input type="text" name="address" placeholder="123 rue Principale">
+          </label>
+          <div class="field-row">
+            <label class="field">
+              <span>Ville</span>
+              <input type="text" name="city">
+            </label>
+            <label class="field">
+              <span>Code postal</span>
+              <input type="text" name="postal_code">
+            </label>
+          </div>
+          <label class="field">
+            <span>Pays</span>
+            <input type="text" name="country" placeholder="Canada">
+          </label>
+          <button type="submit" class="btn btn-gradient">Enregistrer les modifications</button>
+        </form>
+      </section>
+
+      <!-- ---- Paramètres ---- -->
+      <section class="dashboard-panel" data-panel="settings">
+        <div class="dashboard-panel-head">
+          <h1>Paramètres</h1>
+          <p>Sécurité de votre compte.</p>
+        </div>
+
+        <div class="settings-block">
+          <h3>Changer le mot de passe</h3>
+          <form class="dashboard-form" id="password-form">
+            <label class="field">
+              <span>Mot de passe actuel</span>
+              <input type="password" name="current_password" required autocomplete="current-password">
+            </label>
+            <label class="field">
+              <span>Nouveau mot de passe</span>
+              <input type="password" name="new_password" required minlength="8" autocomplete="new-password">
+            </label>
+            <button type="submit" class="btn btn-outline">Mettre à jour le mot de passe</button>
+          </form>
+        </div>
+
+        <div class="settings-block settings-block-danger">
+          <h3>Supprimer mon compte</h3>
+          <p>Cette action est irréversible. Toutes vos données (commandes, factures, formulaires techniques) seront définitivement supprimées.</p>
+          <button type="button" class="btn btn-outline btn-danger" id="open-delete-modal">Supprimer définitivement mon compte</button>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- ============ ÉTAT NON CONNECTÉ ============ -->
+  <div class="dashboard-shell dashboard-guard" id="dashboard-guard">
+    <div class="dashboard-guard-card">
+      <h1>Vous devez vous connecter</h1>
+      <p>Connectez-vous à votre espace client pour accéder à votre tableau de bord.</p>
+      <a href="creation-site-web.html" class="btn btn-gradient">Aller à la connexion</a>
+    </div>
+  </div>
+
+</main>
+
+<!-- ============ MODAL SUPPRESSION DE COMMANDE ============ -->
+<div class="modal-overlay" id="delete-order-modal" hidden>
+  <div class="modal-box">
+    <h3>Voulez-vous vraiment supprimer cet article ?</h3>
+    <p>Cette commande sera retirée de votre liste. Cette action est irréversible.</p>
+    <div class="modal-actions">
+      <button type="button" class="btn btn-outline" id="cancel-delete-order">Annuler</button>
+      <button type="button" class="btn btn-danger" id="confirm-delete-order">Oui</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MODAL SUPPRESSION DE COMPTE ============ -->
+<div class="modal-overlay" id="delete-modal" hidden>
+  <div class="modal-box">
+    <h3>Êtes-vous certain de vouloir supprimer définitivement votre compte ?</h3>
+    <p>Cette action est irréversible. Votre profil, vos commandes, vos factures, vos formulaires techniques et vos sessions seront tous supprimés.</p>
+    <form id="delete-account-form">
+      <label class="field">
+        <span>Confirmez avec votre mot de passe</span>
+        <input type="password" name="password" required autocomplete="current-password">
+      </label>
+      <input type="hidden" name="confirmation" value="SUPPRIMER">
+      <div class="modal-actions">
+        <button type="button" class="btn btn-outline" id="cancel-delete">Annuler</button>
+        <button type="submit" class="btn btn-danger">Supprimer définitivement</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="footer-name">Cyber Teck Q</span>
+      <span class="footer-italic">Imaginer. Créer. Développer. Propulser vos idées.</span>
+    </div>
+    <a class="footer-email" href="mailto:cyberteckq@outlook.com">cyberteckq@outlook.com</a>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; <span id="year"></span> Cyber Teck Q. Tous droits réservés.</p>
+  </div>
+</footer>
+
+<script src="api.js?v=910"></script>
+<script src="ui-utils.js?v=910"></script>
+<script src="script.js?v=910"></script>
+<script src="dashboard.js?v=916"></script>
+</body>
+</html>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="fr-CA">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formulaire technique | Cyber Teck Q</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#2563EB">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=910">
+<link rel="stylesheet" href="dashboard.css?v=916">
+</head>
+<body class="dashboard-body">
+
+<div class="bg-cover-layer"></div>
+
+<header class="site-header" id="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="brand" aria-label="Accueil — Cyber Teck Q">
+      <div class="brand-logo" id="brand-logo">
+        <img src="assets/logo-icon.png" alt="Cyber Teck Q" class="logo-img">
+      </div>
+      <div class="brand-text">
+        <span class="brand-name">CYBER TECK <strong>Q</strong></span>
+        <span class="brand-tagline">Concepteur Web &amp; Solutions Numériques</span>
+      </div>
+    </a>
+    <nav class="main-nav" id="main-nav" aria-label="Navigation principale">
+      <a href="index.html" class="nav-link">Accueil</a>
+      <a href="services.html" class="nav-link">Services</a>
+      <a href="tarifs.html" class="nav-link">Tarifs</a>
+      <a href="mon-compte.html" class="nav-link nav-link-cta-text">Mon espace client</a>
+      <a href="faq.html" class="nav-link">FAQ</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+    </nav>
+    <a href="mon-compte.html" class="btn btn-primary header-cta">Mon compte</a>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main class="dashboard-main">
+
+  <div id="tf-guard" hidden>
+    <div class="dashboard-guard-card" style="margin:0 auto;">
+      <h1 id="tf-guard-title">Un instant…</h1>
+      <p id="tf-guard-text">Vérification de votre commande en cours.</p>
+      <a href="mon-compte.html" class="btn btn-gradient">Retour à mon compte</a>
+    </div>
+  </div>
+
+  <div id="tf-content" hidden>
+    <div class="dashboard-panel-head">
+      <h1>Questionnaire technique</h1>
+      <p>Ces informations nous permettent de démarrer votre projet (<strong id="tf-order-label">—</strong>) avec une vision claire dès le départ.</p>
+    </div>
+
+    <form class="dashboard-form tf-form-centered" id="technical-form">
+
+      <label class="field">
+        <span>Nom de l'entreprise</span>
+        <input type="text" name="company_name">
+      </label>
+      <label class="field">
+        <span>Secteur d'activité</span>
+        <input type="text" name="business_sector">
+      </label>
+      <label class="field">
+        <span>Description de votre entreprise</span>
+        <textarea name="description" rows="3"></textarea>
+      </label>
+      <label class="field">
+        <span>Objectifs du projet</span>
+        <textarea name="objectives" rows="3"></textarea>
+      </label>
+      <label class="field">
+        <span>Public cible</span>
+        <input type="text" name="target_audience">
+      </label>
+      <label class="field">
+        <span>Pages requises</span>
+        <input type="text" name="pages_required" placeholder="Accueil, Services, Contact…">
+      </label>
+      <label class="field">
+        <span>Couleurs souhaitées</span>
+        <input type="text" name="desired_colors" placeholder="Ex: bleu marine, blanc">
+      </label>
+
+      <div class="field-row">
+        <label class="field" style="flex-direction:row; align-items:center; gap:8px;">
+          <input type="checkbox" name="has_existing_logo" style="width:auto;">
+          <span>J'ai déjà un logo</span>
+        </label>
+        <label class="field" style="flex-direction:row; align-items:center; gap:8px;">
+          <input type="checkbox" name="has_images" style="width:auto;">
+          <span>J'ai déjà des images/photos</span>
+        </label>
+      </div>
+
+      <label class="field">
+        <span>Fonctionnalités désirées</span>
+      </label>
+      <div class="field-row" style="flex-wrap:wrap;">
+        <label class="field" style="flex-direction:row; align-items:center; gap:8px; flex:0 0 auto;">
+          <input type="checkbox" name="feature_booking" style="width:auto;"> <span>Réservation</span>
+        </label>
+        <label class="field" style="flex-direction:row; align-items:center; gap:8px; flex:0 0 auto;">
+          <input type="checkbox" name="feature_payment" style="width:auto;"> <span>Paiement en ligne</span>
+        </label>
+        <label class="field" style="flex-direction:row; align-items:center; gap:8px; flex:0 0 auto;">
+          <input type="checkbox" name="feature_blog" style="width:auto;"> <span>Blogue</span>
+        </label>
+        <label class="field" style="flex-direction:row; align-items:center; gap:8px; flex:0 0 auto;">
+          <input type="checkbox" name="feature_gallery" style="width:auto;"> <span>Galerie</span>
+        </label>
+        <label class="field" style="flex-direction:row; align-items:center; gap:8px; flex:0 0 auto;">
+          <input type="checkbox" name="feature_shop" style="width:auto;"> <span>Boutique en ligne</span>
+        </label>
+      </div>
+
+      <label class="field">
+        <span>Langues du site</span>
+        <input type="text" name="languages" placeholder="Ex: Français, Anglais">
+      </label>
+
+      <h2 class="dashboard-subheading tf-section-heading">Hébergement Web</h2>
+
+      <div class="field tf-radio-field">
+        <span>Avez-vous actuellement un hébergement Web ?</span>
+        <div class="radio-choice">
+          <label><input type="radio" name="has_current_hosting" value="yes"><span>Oui</span></label>
+          <label><input type="radio" name="has_current_hosting" value="no" checked><span>Non</span></label>
+        </div>
+      </div>
+
+      <div id="tf-hosting-details" class="tf-conditional-group" hidden>
+        <label class="field">
+          <span>Fournisseur d'hébergement</span>
+          <input type="text" name="hosting_provider" placeholder="Ex: OVH, GoDaddy, Hostinger…">
+        </label>
+        <label class="field">
+          <span>Accès à votre hébergement (identifiants, notes)</span>
+          <textarea name="hosting_access_details" rows="2" placeholder="Informations utiles pour le transfert ou la gestion"></textarea>
+        </label>
+      </div>
+
+      <div class="field tf-radio-field">
+        <span>Souhaitez-vous que Cyber Teck Q fournisse un nouvel hébergement ?</span>
+        <div class="radio-choice">
+          <label><input type="radio" name="wants_new_hosting" value="yes"><span>Oui</span></label>
+          <label><input type="radio" name="wants_new_hosting" value="no" checked><span>Non</span></label>
+        </div>
+      </div>
+
+      <div class="field tf-radio-field">
+        <span>Possédez-vous déjà un nom de domaine ?</span>
+        <div class="radio-choice">
+          <label><input type="radio" name="has_domain_name" value="yes"><span>Oui</span></label>
+          <label><input type="radio" name="has_domain_name" value="no" checked><span>Non</span></label>
+        </div>
+      </div>
+
+      <label class="field" id="tf-domain-name-field" hidden>
+        <span>Nom de domaine</span>
+        <input type="text" name="domain_name" placeholder="exemple.com">
+      </label>
+
+      <div class="field tf-radio-field">
+        <span>Avez-vous besoin d'aide pour acheter un nom de domaine ?</span>
+        <div class="radio-choice">
+          <label><input type="radio" name="wants_domain_help" value="yes"><span>Oui</span></label>
+          <label><input type="radio" name="wants_domain_help" value="no" checked><span>Non</span></label>
+        </div>
+      </div>
+
+      <div class="field tf-radio-field">
+        <span>Souhaitez-vous transférer un site Web existant ?</span>
+        <div class="radio-choice">
+          <label><input type="radio" name="wants_website_transfer" value="yes"><span>Oui</span></label>
+          <label><input type="radio" name="wants_website_transfer" value="no" checked><span>Non</span></label>
+        </div>
+      </div>
+
+      <label class="field">
+        <span>Sites de référence (inspiration)</span>
+        <textarea name="reference_websites" rows="2" placeholder="Liens vers des sites que vous aimez"></textarea>
+      </label>
+      <label class="field">
+        <span>Notes additionnelles</span>
+        <textarea name="additional_notes" rows="3"></textarea>
+      </label>
+
+      <button type="submit" class="btn btn-gradient">Envoyer le questionnaire</button>
+    </form>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="footer-name">Cyber Teck Q</span>
+      <span class="footer-italic">Imaginer. Créer. Développer. Propulser vos idées.</span>
+    </div>
+    <a class="footer-email" href="mailto:cyberteckq@outlook.com">cyberteckq@outlook.com</a>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; <span id="year"></span> Cyber Teck Q. Tous droits réservés.</p>
+  </div>
+</footer>
+
+<script src="api.js?v=910"></script>
+<script src="ui-utils.js?v=910"></script>
+<script src="script.js?v=910"></script>
+<script src="formulaire-technique.js?v=910"></script>
+</body>
+</html>

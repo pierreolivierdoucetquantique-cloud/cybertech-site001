@@ -1,0 +1,214 @@
+"""
+Router : statistiques avancées / rapports pour l'admin.
+
+Complète le tableau de bord simple (admin_dashboard.py) avec des séries de
+données dans le temps et des répartitions, utiles pour des graphiques :
+- revenu mensuel (12 derniers mois)
+- nouvelles commandes mensuelles (12 derniers mois)
+- nouveaux clients mensuels (12 derniers mois)
+- répartition des commandes par statut
+- répartition des commandes par type de produit
+- top clients par revenu total
+"""
+import datetime as dt
+from collections import OrderedDict
+
+from fastapi import APIRouter, Depends
+from sqlalchemy.orm import Session
+from sqlalchemy import func
+
+from app.database import get_db
+from app.dependencies import get_current_admin
+from app.models.admin import Admin
+from app.models.client import Client
+from app.models.order import Order, OrderItem, OrderStatus, ProductType
+from app.models.invoice import Invoice
+
+router = APIRouter(prefix="/api/admin/reports", tags=["admin-reports"])
+
+MONTH_LABELS_FR = [
+    "Jan", "Fév", "Mar", "Avr", "Mai", "Jun",
+    "Jul", "Aoû", "Sep", "Oct", "Nov", "Déc",
+]
+
+
+def _last_n_months(n: int) -> list[tuple[int, int]]:
+    """Retourne une liste de (année, mois) pour les n derniers mois, du plus ancien au plus récent."""
+    today = dt.date.today()
+    months = []
+    y, m = today.year, today.month
+    for _ in range(n):
+        months.append((y, m))
+        m -= 1
+        if m == 0:
+            m = 12
+            y -= 1
+    return list(reversed(months))
+
+
+@router.get("/revenue-by-month")
+def revenue_by_month(
+    months: int = 12,
+    admin: Admin = Depends(get_current_admin),
+    db: Session = Depends(get_db),
+):
+    """
+    v9.12 : bucket l'argent RÉELLEMENT encaissé par mois de confirmation —
+    pas le total facturé par mois de création de facture (qui peut inclure un
+    solde de 60% pas encore payé). Inclut à la fois :
+      - les paiements Interac/Stripe approuvés (nets des remboursements),
+        bucketés par leur date de confirmation ;
+      - les commandes marquées payées MANUELLEMENT par l'admin (ex : le temps
+        que les clés Stripe/Interac soient configurées), bucketées par la
+        dernière mise à jour de leur facture — sinon elles n'apparaîtraient
+        jamais dans aucun graphique alors qu'elles comptent dans le total.
+    """
+    from app.models.payment import Payment, PaymentRequestStatus
+    from app.services.billing import get_collected_amount
+
+    period = _last_n_months(months)
+    buckets = OrderedDict(((y, m), 0.0) for y, m in period)
+
+    earliest = dt.datetime(period[0][0], period[0][1], 1)
+
+    payments = (
+        db.query(Payment)
+        .filter(
+            Payment.status.in_([PaymentRequestStatus.APPROVED, PaymentRequestStatus.REFUNDED]),
+            Payment.updated_at >= earliest,
+        )
+        .all()
+    )
+    for p in payments:
+        key = (p.updated_at.year, p.updated_at.month)
+        if key in buckets:
+            buckets[key] += max((p.amount or 0.0) - (p.refunded_amount or 0.0), 0.0)
+
+    manual_invoices = (
+        db.query(Invoice)
+        .filter(Invoice.amount_paid > 0, Invoice.updated_at >= earliest)
+        .all()
+    )
+    for inv in manual_invoices:
+        if get_collected_amount(db, order_id=inv.order_id) > 0:
+            continue  # a un vrai paiement -> déjà compté ci-dessus
+        key = (inv.updated_at.year, inv.updated_at.month)
+        if key in buckets:
+            buckets[key] += inv.amount_paid
+
+    return {
+        "labels": [f"{MONTH_LABELS_FR[m - 1]} {y}" for y, m in buckets.keys()],
+        "values": [round(v, 2) for v in buckets.values()],
+    }
+
+
+@router.get("/orders-by-month")
+def orders_by_month(
+    months: int = 12,
+    admin: Admin = Depends(get_current_admin),
+    db: Session = Depends(get_db),
+):
+    period = _last_n_months(months)
+    buckets = OrderedDict(((y, m), 0) for y, m in period)
+
+    earliest = dt.datetime(period[0][0], period[0][1], 1)
+    orders = db.query(Order).filter(Order.created_at >= earliest).all()
+    for o in orders:
+        key = (o.created_at.year, o.created_at.month)
+        if key in buckets:
+            buckets[key] += 1
+
+    return {
+        "labels": [f"{MONTH_LABELS_FR[m - 1]} {y}" for y, m in buckets.keys()],
+        "values": list(buckets.values()),
+    }
+
+
+@router.get("/clients-by-month")
+def clients_by_month(
+    months: int = 12,
+    admin: Admin = Depends(get_current_admin),
+    db: Session = Depends(get_db),
+):
+    period = _last_n_months(months)
+    buckets = OrderedDict(((y, m), 0) for y, m in period)
+
+    earliest = dt.datetime(period[0][0], period[0][1], 1)
+    clients = db.query(Client).filter(Client.created_at >= earliest).all()
+    for c in clients:
+        key = (c.created_at.year, c.created_at.month)
+        if key in buckets:
+            buckets[key] += 1
+
+    return {
+        "labels": [f"{MONTH_LABELS_FR[m - 1]} {y}" for y, m in buckets.keys()],
+        "values": list(buckets.values()),
+    }
+
+
+@router.get("/orders-by-status")
+def orders_by_status(
+    admin: Admin = Depends(get_current_admin),
+    db: Session = Depends(get_db),
+):
+    rows = (
+        db.query(Order.status, func.count(Order.id))
+        .group_by(Order.status)
+        .all()
+    )
+    counts = {status.value: 0 for status in OrderStatus}
+    for status, count in rows:
+        counts[status.value if hasattr(status, "value") else status] = count
+    return counts
+
+
+@router.get("/orders-by-product-type")
+def orders_by_product_type(
+    admin: Admin = Depends(get_current_admin),
+    db: Session = Depends(get_db),
+):
+    """
+    v9.11 : un panier (Order) peut contenir plusieurs services différents.
+    On compte donc les OrderItem par type de produit (chaque service du
+    panier, pas chaque panier) pour une répartition réellement précise.
+    """
+    rows = (
+        db.query(OrderItem.product_type, func.count(OrderItem.id))
+        .group_by(OrderItem.product_type)
+        .all()
+    )
+    counts = {pt.value: 0 for pt in ProductType}
+    for pt, count in rows:
+        counts[pt.value if hasattr(pt, "value") else pt] = count
+    return counts
+
+
+@router.get("/top-clients")
+def top_clients(
+    limit: int = 10,
+    admin: Admin = Depends(get_current_admin),
+    db: Session = Depends(get_db),
+):
+    from app.services.billing import get_total_collected_revenue
+
+    rows = (
+        db.query(
+            Client.id, Client.first_name, Client.last_name, Client.email,
+            func.count(Invoice.id).label("invoice_count"),
+        )
+        .join(Invoice, Invoice.client_id == Client.id)
+        .group_by(Client.id)
+        .all()
+    )
+    results = [
+        {
+            "client_id": r.id,
+            "client_name": f"{r.first_name} {r.last_name}",
+            "client_email": r.email,
+            "total_revenue": get_total_collected_revenue(db, client_id=r.id),
+            "invoice_count": r.invoice_count,
+        }
+        for r in rows
+    ]
+    results.sort(key=lambda r: r["total_revenue"], reverse=True)
+    return results[:limit]
